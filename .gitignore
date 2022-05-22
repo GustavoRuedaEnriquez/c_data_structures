@@ -1,4 +1,4 @@
 *.o
-demo_binary_tree
+demo_binary_search_tree
 demo_queue
 demo_stack

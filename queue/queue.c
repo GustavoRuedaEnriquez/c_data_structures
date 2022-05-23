@@ -7,9 +7,9 @@ May 19th 2022
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node_str {
+struct Queue_node_str {
   type_t data;
-  struct Node_str* next;
+  struct Queue_node_str* next;
 };
 
 struct Queue_str {
@@ -23,23 +23,18 @@ Queue_t queue_create() {
   return q;
 }
 
-int queue_size(Queue_t q) {
-  return q->size;
-}
-
-Boolean queue_isEmpty(Queue_t q) {
-  if( q == 0 )
-    return TRUE;
-  else
-    return FALSE;
-}
-
-type_t queue_peek(Queue_t q) {
-  return q->first->data;
+void queue_destroy(Queue_t q) {
+  Node_t temp;
+  while (q->first != NULL) {
+    temp = q->first->next;
+    free(q->first);
+    q->first = temp;
+  }
+  free(q);
 }
 
 void queue_offer(Queue_t q, type_t data) {
-  Node_t new_node = calloc( 1, sizeof( struct Node_str ) );
+  Node_t new_node = calloc( 1, sizeof( struct Queue_node_str ) );
   new_node->data = data;
   if (q->size == 0) {
     q->first = new_node;
@@ -51,6 +46,10 @@ void queue_offer(Queue_t q, type_t data) {
     q->last = new_node;
     q->size++;
   }
+}
+
+type_t queue_peek(Queue_t q) {
+  return q->first->data;
 }
 
 type_t queue_poll(Queue_t q) {
@@ -66,12 +65,13 @@ type_t queue_poll(Queue_t q) {
   }
 }
 
-void queue_destroy(Queue_t q) {
-    Node_t temp;
-    while (q->first != NULL) {
-        temp = q->first->next;
-        free(q->first);
-        q->first = temp;
-    }
-    free(q);
+int queue_size(Queue_t q) {
+  return q->size;
+}
+
+bool_t queue_isEmpty(Queue_t q) {
+  if( q == 0 )
+    return TRUE;
+  else
+    return FALSE;
 }

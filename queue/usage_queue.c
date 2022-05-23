@@ -12,33 +12,57 @@ Test for the queues's functions.
 int main() {
     Queue_t queue_1 = queue_create();
     
-    type_t element_1 = 100;
-    type_t element_2 = 200;
-    type_t element_3 = 300;
-    type_t element_4 = 400;
+    /* Adding elements */
+    printf("Adding 7 elements.\n");
+    float element_1 = 323.55;
+    float element_2 = 103.52;
+    float element_3 = 212.44;
+    float element_4 = 484.73;
+    float element_5 = 356.32;
+    float element_6 = 214.63;
+    float element_7 = 467.43;
+    queue_offer(queue_1, &element_1);
+    queue_offer(queue_1, &element_2);
+    queue_offer(queue_1, &element_3);
+    queue_offer(queue_1, &element_4);
+    queue_offer(queue_1, &element_5);
+    queue_offer(queue_1, &element_6);
+    queue_offer(queue_1, &element_7);
+    printf("Elements successfully added.\n");
 
-    queue_offer(queue_1, element_1);
-    queue_offer(queue_1, element_2);
-    queue_offer(queue_1, element_3);
-    queue_offer(queue_1, element_4);
-    
     int size = queue_size(queue_1);
-    printf("Queue's size: %d\n", size);
+    printf("Queue's size: %d\n\n", size);
 
+
+    /* Peeking on a element */
     type_t first = queue_peek(queue_1);
-    printf("Peeking queue's first element: %d\n", first);
+    printf("Peeking queue's first element: %.2f\n", *(float *) first);
     size = queue_size(queue_1);
-    printf("Queue's size: %d\n", size);
+    printf("Queue's size: %d\n\n", size);
 
+    /* Polling one element */
     first = queue_poll(queue_1);
-    printf("Polling queue's first element: %d\n", first);
+    printf("Polling queue's first element: %.2f\n", *(float *) first);
     size = queue_size(queue_1);
-    printf("Queue's size: %d\n", size);
+    printf("Queue's size: %d\n\n", size);
 
-    first = queue_peek(queue_1);
-    printf("Peeking queue's first element: %d\n", first);
+    /* Polling one element */
+    first = queue_poll(queue_1);
+    printf("Polling queue's first element: %.2f\n", *(float *) first);
     size = queue_size(queue_1);
-    printf("Queue's size: %d\n", size);
+    printf("Queue's size: %d\n\n", size);
+
+    /* Polling one element */
+    first = queue_poll(queue_1);
+    printf("Polling queue's first element: %.2f\n", *(float *) first);
+    size = queue_size(queue_1);
+    printf("Queue's size: %d\n\n", size);
+
+    /* Polling one element */
+    first = queue_poll(queue_1);
+    printf("Polling queue's first element: %.2f\n", *(float *) first);
+    size = queue_size(queue_1);
+    printf("Queue's size: %d\n\n", size);
 
     return 0;
 }

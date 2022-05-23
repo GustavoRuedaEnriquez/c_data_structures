@@ -32,32 +32,34 @@ The height of a node in a binary tree is the largest number of edges in a path f
 </div>
 On the image above, we can see that the path with most edges is through 10 → 13 → 12 → 11, making the height of the tree 3.
 
-### Tree traversal
+### Tree traversals
 Tree traversal is the process of visitting each of the tree nodes exactly once, these traversals are classified by the order in which the nodes are visited. This project only goes through the (Depth First Search) Traversals.
 
-#### **Inorder**
+#### **Inorder traversal**
 Inorder Traversal is the one the most used variant of DFS(Depth First Search) Traversal of the tree.
 
 As DFS suggests, we will first focus on the depth of the chosen Node and then go to the breadth at that level. Therefore, we will start from the root node of the tree and go deeper-and-deeper into the left subtree with recursive manner.
 
 The basic idea on inorder traversal is following the order **Left, Root, Right**.
+<div align='center'>
+<img style="width:10%;padding:10px;" src='../_resources/inorder_traversal.gif' alt='Inorder traversal.'>
+</div>
 
-#### **Preorder**
+#### **Preorder traversal**
 Preorder Traversal is another variant of DFS. Where atomic operations in a recursive function, are as same as Inorder traversal but with a different order.
 
 Here, we visit the current node first and then goes to the left sub-tree. After covering every node of the left sub-tree, we will move towards the right sub-tree and visit in a similar fashion.
 
 The basic idea on inorder traversal is following the order **Root, Left, Right**.
+<div align='center'>
+<img style="width:10%;padding:10px;" src='../_resources/preorder_traversal.gif' alt='Preorder traversal.'>
+</div>
 
-#### **Postorder**
+#### **Postorder traversal**
 Similar goes with Postorder Traversal. Where we visit the left subtree and the right subtree before visiting the current node in recursion.
 
 The basic idea on inorder traversal is following the order **Left, Right, Root**.
-
-Below, you can see how the differen traversals look on the same BST. The arrengement is: inorder, preorder and postorder.
 <div align='center'>
-<img style="width:10%;padding:10px;" src='../_resources/inorder_traversal.gif' alt='Inorder traversal.'>
-<img style="width:10%;padding:10px;" src='../_resources/preorder_traversal.gif' alt='Preorder traversal.'>
 <img style="width:10%;padding:10px;" src='../_resources/postorder_traversal.gif' alt='Postorder traversal.'>
 </div>
 

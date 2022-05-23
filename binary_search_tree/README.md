@@ -56,9 +56,9 @@ The basic idea on inorder traversal is following the order **Left, Right, Root**
 
 Below, you can see how the differen traversals look on the same BST. The arrengement is: inorder, preorder and postorder.
 <div align='center'>
-<img style="width:15%;padding:10px;" src='../_resources/inorder_traversal.gif' alt='Inorder traversal.'>
-<img style="width:15%;padding:10px;" src='../_resources/preorder_traversal.gif' alt='Preorder traversal.'>
-<img style="width:15%;padding:10px;" src='../_resources/postorder_traversal.gif' alt='Postorder traversal.'>
+<img style="width:10%;padding:10px;" src='../_resources/inorder_traversal.gif' alt='Inorder traversal.'>
+<img style="width:10%;padding:10px;" src='../_resources/preorder_traversal.gif' alt='Preorder traversal.'>
+<img style="width:10%;padding:10px;" src='../_resources/postorder_traversal.gif' alt='Postorder traversal.'>
 </div>
 
 ## How to compile

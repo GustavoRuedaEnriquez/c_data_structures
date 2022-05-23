@@ -33,13 +33,53 @@ The height of a node in a binary tree is the largest number of edges in a path f
 On the image above, we can see that the path with most edges is through 10 → 13 → 12 → 11, making the height of the tree 3.
 
 ### Tree traversal
-Tree traversal is the process of visitting each of the tree nodes exactly once, these traversals are classified by the order in which the nodes are visited. This project only contains the Depth First Traversals.
+Tree traversal is the process of visitting each of the tree nodes exactly once, these traversals are classified by the order in which the nodes are visited. This project only goes through the (Depth First Search) Traversals.
 
 #### **Inorder**
-<div align='center'>
-<img src='../_resources/inorder_traversal.gif' alt='Inorder traversal.'>
-</div>
+Inorder Traversal is the one the most used variant of DFS(Depth First Search) Traversal of the tree.
+
+As DFS suggests, we will first focus on the depth of the chosen Node and then go to the breadth at that level. Therefore, we will start from the root node of the tree and go deeper-and-deeper into the left subtree with recursive manner.
+
+The basic idea on inorder traversal is following the order **Left, Root, Right**.
 
 #### **Preorder**
+Preorder Traversal is another variant of DFS. Where atomic operations in a recursive function, are as same as Inorder traversal but with a different order.
+
+Here, we visit the current node first and then goes to the left sub-tree. After covering every node of the left sub-tree, we will move towards the right sub-tree and visit in a similar fashion.
+
+The basic idea on inorder traversal is following the order **Root, Left, Right**.
 
 #### **Postorder**
+Similar goes with Postorder Traversal. Where we visit the left subtree and the right subtree before visiting the current node in recursion.
+
+The basic idea on inorder traversal is following the order **Left, Right, Root**.
+
+Below, you can see how the differen traversals look on the same BST. The arrengement is: inorder, preorder and postorder.
+<div align='center'>
+<img style="width:30%;padding:10px;" src='../_resources/inorder_traversal.gif' alt='Inorder traversal.'>
+<img style="width:30%;padding:10px;" src='../_resources/preorder_traversal.gif' alt='Preorder traversal.'>
+<img style="width:30%;padding:10px;" src='../_resources/postorder_traversal.gif' alt='Postorder traversal.'>
+</div>
+
+## How to compile
+Compiling the project is really simple, just run the _make_ command on the project's BST directory.
+```bash
+cd binary_search_tree
+make
+```
+By doing so, the executable _demo_binary_search_tree_ will be created on the same directory. This file will execute the instructions written on the [usage file](#usage-file).
+
+## Usage file
+The projects contains a file that serves as a manual of how to use the C library, it is a simple test that initially creates a 15-node tree like this one:
+<div align='center'>
+<img src='../_resources/binary_tree_start.drawio.png' alt='Inorder traversal.'>
+</div>
+
+Then, removes 3 nodes to obtain the resulting tree:
+<div align='center'>
+<img src='../_resources/binary_tree_end.drawio.png' alt='Inorder traversal.'>
+</div>
+
+Also, during those 2 operations (add nodes/remove nodes), tree statistics are calculated (height, traversals, etc).
+
+All the functions available on the header file are tested.

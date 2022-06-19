@@ -9,6 +9,18 @@ May 21th 2022
 
 #define SPACE 10
 
+/* Private functions */
+void       __destroy_node(BST_node_t);
+BST_node_t __insert_node(BST_node_t, int);
+BST_node_t __remove_node(BST_node_t, int);
+BST_node_t __get_min_value_node(BST_node_t);
+void       __print_preorder_traversal(BST_node_t);
+void       __print_inorder_traversal(BST_node_t);
+void       __print_postorder_traversal(BST_node_t);
+void       __print_nodes(BST_node_t, int);
+int        __calculate_height(BST_node_t);
+bool_t     __search_node(BST_node_t, int value);
+
 struct BST_node_str {
   int    data;
   struct BST_node_str* left;
@@ -22,58 +34,75 @@ struct BST_str {
 
 BST_t bst_create() {
   BST_t t = calloc( 1, sizeof ( struct BST_str ) );
-  return t;
+  return t;  
 }
 
-void bst_destroy(BST_t t) {
-  destroy_node(t->root);
+int bst_destroy(BST_t t) {
+  __destroy_node(t->root);
   free(t);
+  return TRUE;
 }
 
-void bst_add(BST_t t, int value) {
-  t->root = insert_node(t->root, value);
+int bst_add(BST_t t, int value) {
+  if( bst_contains(t, value) == TRUE ) {
+    return VALUE_EXISTS;
+  }
+  else {
+    t->root = __insert_node(t->root, value);
+    return TRUE;
+  }
 }
 
-void bst_remove(BST_t t, int value) {
-  t->root = remove_node(t->root, value);
+int bst_remove(BST_t t, int value) {
+  if( bst_contains(t, value) == FALSE ) {
+    return VALUE_DOESNT_EXISTS;
+  }
+  else {
+    t->root = __remove_node(t->root, value);
+    return TRUE;
+  }
 }
 
 void bst_print(BST_t t) {
-  print_nodes(t->root, 0);
+  __print_nodes(t->root, 0);
 }
 
 void bst_traverse(BST_t t, traversal_t traversal_type) {
   switch(traversal_type) {
     case INORDER:
-      print_inorder_traversal(t->root);
+      __print_inorder_traversal(t->root);
       break;
     case PREORDER:
-      print_preorder_traversal(t->root);
+      __print_preorder_traversal(t->root);
       break;
     case POSTORDER:
-      print_postorder_traversal(t->root);
+      __print_postorder_traversal(t->root);
       break;
   }
   printf("\n");
 }
 
 int bst_get_height(BST_t t) {
-  return calculate_height(t->root);
+  return __calculate_height(t->root);
 }
 
 bool_t bst_contains(BST_t t, int value) {
-  return search_node(t->root, value);
+  return __search_node(t->root, value);
 }
 
-void destroy_node(BST_node_t node) {
+/******************************************************************************/
+//                                Private functions                           //
+/******************************************************************************/
+
+void __destroy_node(BST_node_t node) {
   if( node == NULL )
     return;
-  destroy_node(node->left);
-  destroy_node(node->right);
+  __destroy_node(node->left);
+  __destroy_node(node->right);
   free(node);
 }
 
-BST_node_t insert_node(BST_node_t node, int value) {
+BST_node_t __insert_node(BST_node_t node, int value) {
   if( node == NULL ) {
     BST_node_t new_node = calloc( 1, sizeof( struct BST_node_str ) );
     new_node->left = NULL;
@@ -82,23 +111,23 @@ BST_node_t insert_node(BST_node_t node, int value) {
     return new_node;
   }
   if( value < node->data ) {
-    node->left = insert_node(node->left, value);
+    node->left = __insert_node(node->left, value);
   } 
   else if( value > node->data ) {
-    node->right = insert_node(node->right, value);
+    node->right = __insert_node(node->right, value);
   }
   return node;
 }
 
-BST_node_t remove_node(BST_node_t node, int value) {
+BST_node_t __remove_node(BST_node_t node, int value) {
   if( node == NULL ) {
     return node;
   }
   if( value < node->data ) {
-    node->left = remove_node(node->left, value);
+    node->left = __remove_node(node->left, value);
   } 
   else if( value > node->data ) {
-    node->right = remove_node(node->right, value);
+    node->right = __remove_node(node->right, value);
   }
   else {
     /* First case: Node with 1 or 0 children */
@@ -114,68 +143,68 @@ BST_node_t remove_node(BST_node_t node, int value) {
     }
     /* Second case: Node with 2 children */
     /* Need to get inorder successor. */
-    BST_node_t temp = get_min_value_node(node->right);
+    BST_node_t temp = __get_min_value_node(node->right);
     node->data = temp->data;
-    node->right = remove_node(node->right, node->data);
+    node->right = __remove_node(node->right, node->data);
   }
   return node;
 }
 
-BST_node_t get_min_value_node(BST_node_t node) {
+BST_node_t __get_min_value_node(BST_node_t node) {
   BST_node_t current = node;
   while (current && current->left != NULL)
     current = current->left;
   return current;
 }
 
-void print_preorder_traversal(BST_node_t node) {
+void __print_preorder_traversal(BST_node_t node) {
   if( node == NULL )
     return;
   printf(" %d ", node->data);
-  print_preorder_traversal(node->left);
-  print_preorder_traversal(node->right);
+  __print_preorder_traversal(node->left);
+  __print_preorder_traversal(node->right);
 }
 
-void print_inorder_traversal(BST_node_t node) {
+void __print_inorder_traversal(BST_node_t node) {
   if( node == NULL )
     return;
-  print_inorder_traversal(node->left);
+  __print_inorder_traversal(node->left);
   printf(" %d ", node->data);
-  print_inorder_traversal(node->right);
+  __print_inorder_traversal(node->right);
 }
 
-void print_postorder_traversal(BST_node_t node) {
+void __print_postorder_traversal(BST_node_t node) {
   if( node == NULL )
     return;
-  print_postorder_traversal(node->left);
-  print_postorder_traversal(node->right);
+  __print_postorder_traversal(node->left);
+  __print_postorder_traversal(node->right);
   printf(" %d ", node->data);
 }
 
-void print_nodes(BST_node_t node, int space) {
+void __print_nodes(BST_node_t node, int space) {
   if (node == NULL)
     return;
   space += SPACE;
-  print_nodes(node->right, space);
+  __print_nodes(node->right, space);
   printf("\n");
   for (int i = SPACE; i < space; i++)
     printf(" ");
   printf("%d\n", node->data);
-  print_nodes(node->left, space);
+  __print_nodes(node->left, space);
 }
 
-int calculate_height(BST_node_t node) {
+int __calculate_height(BST_node_t node) {
   if( node == NULL )
     return -1;
-  int left = calculate_height(node->left);
-  int right = calculate_height(node->right);
+  int left = __calculate_height(node->left);
+  int right = __calculate_height(node->right);
   if( left >= right )
     return left + 1;
   else
     return right + 1;
 }
 
-bool_t search_node(BST_node_t node, int value) {
+bool_t __search_node(BST_node_t node, int value) {
   bool_t result = FALSE;
   if(node == NULL) {
     return FALSE;
@@ -183,5 +212,5 @@ bool_t search_node(BST_node_t node, int value) {
   if(node->data == value) {
     return TRUE;
   }
-  return search_node(node->left, value) | search_node(node->right, value);
+  return __search_node(node->left, value) | __search_node(node->right, value);
 }

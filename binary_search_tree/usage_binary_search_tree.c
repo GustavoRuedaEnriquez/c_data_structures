@@ -8,7 +8,7 @@ May 21th 2022
 #include <stdlib.h>
 
 int main() {
-    BST_t tree = bst_create();
+    BST_t tree = bst_create(tree);
   
     /* Adding nodes */
     printf("Adding 15 nodes: (9,15,13,1,3,2,4,7,6,8,15,10,12,11 and 14).\n");

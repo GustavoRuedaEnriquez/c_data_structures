@@ -7,11 +7,11 @@ May 16th 2022
 #include<stdio.h>
 #include<stdlib.h>
 
-struct Node_str{
+struct Node_str {
   type_t data;
   struct Node_str *prior;
 };
-struct Stack_str{
+struct Stack_str {
   Node_t top;
   int size;
 };
@@ -68,4 +68,21 @@ void stack_destroy(Stack_t s) {
     s->top = temp;
   }
   free(s);
+  return;
+}
+
+void stack_print(Stack_t s) {
+  if (s->size == 0)
+    printf("The stack is empty\n");
+  else {
+    Node_t temp = s->top;
+    printf("Stack's size: %d\n", s->size);
+    printf("Top:");
+    while (temp != NULL) {
+      printf("\t%d\n", temp->data);
+      temp = temp->prior;
+    }
+    printf("\n");
+  }
+  return;
 }

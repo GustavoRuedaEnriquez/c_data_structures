@@ -17,5 +17,6 @@ type_t  stack_top(Stack_t);
 void    stack_push(Stack_t, type_t);
 type_t  stack_pop(Stack_t);
 void    stack_destroy(Stack_t);
+void    stack_print(Stack_t);
 
 #endif /* STACK_H_ */

@@ -8,18 +8,19 @@ May 16th 2022
 #include<stdlib.h>
 #include <string.h>
 
-struct Node_str {
+struct Stack_Node_str {
   type_t data;
-  struct Node_str *prior;
+  struct Stack_Node_str *prior;
 };
 struct Stack_str {
-  Node_t top;
+  Stack_Node_t top;
   int size;
   datatype_t datatype;
 };
 
 Stack_t stack_create(datatype_t type) {
   Stack_t s = (Stack_t) calloc(1, sizeof(struct Stack_str));
+  memset(s, 0, sizeof(struct Stack_str));
   s->datatype = type;
   return s;
 }
@@ -45,7 +46,7 @@ type_t stack_top(Stack_t s) {
 }
 
 void stack_push(Stack_t s, type_t data) {
-  Node_t new_node = (Node_t) calloc(1, sizeof(struct Node_str));
+  Stack_Node_t new_node = (Stack_Node_t) calloc(1, sizeof(struct Stack_Node_str));
   size_t data_size = GET_DATA_SIZE(s->datatype, data); 
 
   new_node->data = malloc(data_size);
@@ -69,7 +70,7 @@ type_t stack_pop(Stack_t s) {
 }
 
 void stack_destroy(Stack_t s) {
-  Node_t temp;
+  Stack_Node_t temp;
   while (s->top != NULL) {
     temp = s->top->prior;
     free(s->top);
@@ -86,7 +87,7 @@ void stack_print(Stack_t s) {
     if (s->datatype == MIXED)
       printf("Stack's data is mixed, unable to fully print its contents\n");
     else {
-      Node_t temp = s->top;
+      Stack_Node_t temp = s->top;
       printf("Stack's size: %d\n", s->size);
       printf("Top:");
       while (temp != NULL) {

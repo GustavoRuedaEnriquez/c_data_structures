@@ -7,7 +7,7 @@ May 16th 2022
 #ifndef STACK_H_
 #define STACK_H_
 
-typedef struct Node_str  * Node_t;
+typedef struct Stack_Node_str  * Stack_Node_t;
 typedef struct Stack_str * Stack_t;
 
 Stack_t stack_create(datatype_t);

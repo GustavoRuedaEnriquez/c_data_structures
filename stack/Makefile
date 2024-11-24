@@ -6,4 +6,4 @@ all:
 clean:
 	rm stack.o
 	rm usage_stack.o
-	rm demo_stack;
+	rm demo_stack

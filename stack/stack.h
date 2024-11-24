@@ -10,7 +10,7 @@ May 16th 2022
 typedef struct Node_str  * Node_t;
 typedef struct Stack_str * Stack_t;
 
-Stack_t stack_create();
+Stack_t stack_create(datatype_t);
 int     stack_size(Stack_t);
 bool_t  stack_isEmpty(Stack_t);
 type_t  stack_top(Stack_t);

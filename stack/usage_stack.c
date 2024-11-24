@@ -10,22 +10,61 @@ Test for the stack's functions.
 #include <stdlib.h>
 
 int main() {
-  Stack_t stack_1 = stack_create();
+  printf("====== Testing stack for unsigned integers ======\n");
+  Stack_t stack_uint = stack_create(UINT);
 
-  printf("\n\n*** Will push 3 elements into the stack: 23, 4 and 324 ***\n\n");
-  stack_push(stack_1, 23);
-  stack_push(stack_1, 4);
-  stack_push(stack_1, 324);
-  stack_print(stack_1);
-  type_t top = stack_top(stack_1);
-  printf("Stack's top: %d\n", top);
-
-  printf("\n\n*** Will pop the top of the stack ***\n\n");
-  stack_pop(stack_1);
-  stack_print(stack_1);
-  top = stack_top(stack_1);
-  printf("Stack's top: %d\n", top);
+  printf("\n*** Adding 10 unsigned integers elements to the stack ***\n");
+  for(unsigned int i = 1; i <= 10; i++)
+    stack_push(stack_uint, (void *)&i);
+  stack_print(stack_uint);
   
-  stack_destroy(stack_1);
+  type_t top = stack_top(stack_uint);
+  printf("Stack's top: %u\n", *(unsigned int*)top);
+
+  printf("\n*** Removing the top of the stack ***\n");
+  type_t popped_element = stack_pop(stack_uint);
+  printf("Element popped: %u\n", *(unsigned int*)popped_element);
+  stack_print(stack_uint);
+  stack_destroy(stack_uint);
+
+  printf("\n\n\n");
+
+  printf("====== Testing stack for integers ======\n");
+  Stack_t stack_int = stack_create(INT);
+
+  printf("\n*** Adding 10 integer elements to the stack ***\n");
+  for(int i = -5; i <= 5; i++)
+    stack_push(stack_int, (void *)&i);
+  stack_print(stack_int);
+  
+  top = stack_top(stack_int);
+  printf("Stack's top: %d\n", *(int*)top);
+
+  printf("\n*** Removing the top of the stack ***\n");
+  popped_element = stack_pop(stack_int);
+  printf("Element popped: %d\n", *(int*)popped_element);
+  stack_print(stack_int);
+  stack_destroy(stack_int);
+
+  printf("\n\n\n");
+
+  printf("====== Testing stack for strings ======\n");
+  Stack_t stack_string = stack_create(STRING);
+
+  printf("\n*** Adding 10 string elements to the stack ***\n");
+  char *array[] = { "Testing", "my", "generic", "stack", "structure", \
+                    "on", "C", "languaga", "How", "cool!" };
+  for(int i = 0; i < 10; i++)
+    stack_push(stack_string, (void *)array[i]);
+  stack_print(stack_string);
+  
+  top = stack_top(stack_string);
+  printf("Stack's top: %s\n", (char *)top);
+
+  printf("\n*** Removing the top of the stack ***\n");
+  popped_element = stack_pop(stack_string);
+  printf("Element popped: %s\n", (char*)popped_element);
+  stack_print(stack_string);
+  stack_destroy(stack_string);
   return 0;
 }

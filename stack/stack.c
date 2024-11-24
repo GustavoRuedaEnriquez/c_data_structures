@@ -6,6 +6,7 @@ May 16th 2022
 #include"stack.h"
 #include<stdio.h>
 #include<stdlib.h>
+#include <string.h>
 
 struct Node_str {
   type_t data;
@@ -14,10 +15,12 @@ struct Node_str {
 struct Stack_str {
   Node_t top;
   int size;
+  datatype_t datatype;
 };
 
-Stack_t stack_create() {
-  Stack_t s = (Stack_t) calloc( 1, sizeof( struct Stack_str ) );
+Stack_t stack_create(datatype_t type) {
+  Stack_t s = (Stack_t) calloc(1, sizeof(struct Stack_str));
+  s->datatype = type;
   return s;
 }
 
@@ -42,8 +45,13 @@ type_t stack_top(Stack_t s) {
 }
 
 void stack_push(Stack_t s, type_t data) {
-  Node_t new_node = (Node_t) malloc(sizeof(struct Node_str));
-  new_node->data = data;
+  Node_t new_node = (Node_t) calloc(1, sizeof(struct Node_str));
+  size_t data_size = GET_DATA_SIZE(s->datatype, data); 
+
+  new_node->data = malloc(data_size);
+  memset(new_node->data, 0, data_size);
+  memcpy(new_node->data, data, data_size);
+  
   new_node->prior = s->top;
   s->size++;
   s->top = new_node;
@@ -75,14 +83,22 @@ void stack_print(Stack_t s) {
   if (s->size == 0)
     printf("The stack is empty\n");
   else {
-    Node_t temp = s->top;
-    printf("Stack's size: %d\n", s->size);
-    printf("Top:");
-    while (temp != NULL) {
-      printf("\t%d\n", temp->data);
-      temp = temp->prior;
+    if (s->datatype == MIXED)
+      printf("Stack's data is mixed, unable to fully print its contents\n");
+    else {
+      Node_t temp = s->top;
+      printf("Stack's size: %d\n", s->size);
+      printf("Top:");
+      while (temp != NULL) {
+        if (s->datatype == UINT)
+          printf("\t%u\n", VOID_PTR_2_UNSIGNED_INT(temp->data));
+        else if (s->datatype == INT)
+          printf("\t%d\n", VOID_PTR_2_INT(temp->data));
+        else if (s->datatype == STRING)
+          printf("\t%s\n", temp->data);
+        temp = temp->prior;
+      }
     }
-    printf("\n");
   }
   return;
 }

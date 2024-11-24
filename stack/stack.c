@@ -90,12 +90,22 @@ void stack_print(Stack_t s) {
       printf("Stack's size: %d\n", s->size);
       printf("Top:");
       while (temp != NULL) {
+
         if (s->datatype == UINT)
-          printf("\t%u\n", VOID_PTR_2_UNSIGNED_INT(temp->data));
+          printf("\t%u\n", VOID_PTR_2_UINT(temp->data));
         else if (s->datatype == INT)
           printf("\t%d\n", VOID_PTR_2_INT(temp->data));
+        else if (s->datatype == ULONG)
+          printf("\t%lu\n", VOID_PTR_2_ULONG(temp->data));
+        else if (s->datatype == LONG)
+          printf("\t%ld\n", VOID_PTR_2_LONG(temp->data));
+        else if (s->datatype == FLOAT)
+          printf("\t%.6f\n", VOID_PTR_2_FLOAT(temp->data));
+        else if (s->datatype == DOUBLE)
+          printf("\t%.6f\n", VOID_PTR_2_DOUBLE(temp->data));
         else if (s->datatype == STRING)
           printf("\t%s\n", temp->data);
+
         temp = temp->prior;
       }
     }

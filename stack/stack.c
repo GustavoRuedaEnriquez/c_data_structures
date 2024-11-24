@@ -16,7 +16,6 @@ struct Stack_str{
   int size;
 };
 
-
 Stack_t stack_create() {
   Stack_t s = (Stack_t) calloc( 1, sizeof( struct Stack_str ) );
   return s;
@@ -43,7 +42,7 @@ type_t stack_top(Stack_t s) {
 }
 
 void stack_push(Stack_t s, type_t data) {
-  Node_t new_node = (Node_t) malloc( sizeof( struct Node_str ) );
+  Node_t new_node = (Node_t) malloc(sizeof(struct Node_str));
   new_node->data = data;
   new_node->prior = s->top;
   s->size++;

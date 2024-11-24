@@ -3,11 +3,10 @@ Coded by Gustavo Adolfo Rueda Enríquez
 May 16th 2022
 */
 
+#include "basic_defs.h"
 #ifndef STACK_H_
 #define STACK_H_
 
-typedef void * type_t;
-typedef enum {FALSE, TRUE} bool_t;
 typedef struct Node_str  * Node_t;
 typedef struct Stack_str * Stack_t;
 

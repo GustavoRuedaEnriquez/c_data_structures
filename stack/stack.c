@@ -47,8 +47,9 @@ type_t stack_top(Stack_t s) {
 
 void stack_push(Stack_t s, type_t data) {
   Stack_Node_t new_node = (Stack_Node_t) calloc(1, sizeof(struct Stack_Node_str));
-  size_t data_size = GET_DATA_SIZE(s->datatype, data); 
+  memset(new_node, 0, sizeof(struct Stack_Node_str));
 
+  size_t data_size = GET_DATA_SIZE(s->datatype, data); 
   new_node->data = malloc(data_size);
   memset(new_node->data, 0, data_size);
   memcpy(new_node->data, data, data_size);

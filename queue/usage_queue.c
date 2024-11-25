@@ -38,6 +38,21 @@ int main() {
 
   printf("\n\n\n");
 
+  printf("====== Testing queue for floats ======\n");
+  test_float();
+
+  printf("\n\n\n");
+
+  printf("====== Testing queue for doubles ======\n");
+  test_double();
+
+  printf("\n\n\n");
+
+  printf("====== Testing queue for strings ======\n");
+  test_string();
+
+  printf("\n\n\n");
+
     return 0;
 }
 
@@ -157,6 +172,90 @@ void test_long() {
   queue_destroy(queue_long);
 }
 
-void test_float();
-void test_double();
-void test_string();
+void test_float() {
+  Queue_t queue_float = queue_create(FLOAT); 
+  float f = 1.476f;
+  float temp = f;
+
+  printf("\n*** Adding 10 float elements to the queue ***\n");
+  for(int i = 1; i <= 10; i++) {
+    temp = (i + f) * 1.5;
+    queue_offer(queue_float, (void *)&temp);
+  }
+  queue_print(queue_float);
+
+  printf("\n*** Peeking queue's front ***\n");
+  type_t first = queue_peek(queue_float);
+  printf("Peeking queue's first element: %.6f\n", *(float *) first);
+  queue_print(queue_float);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_float);
+  printf("Polling queue's first element: %.6f\n", *(float *) first);
+  queue_print(queue_float);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_float);
+  printf("Polling queue's first element: %.6f\n", *(float *) first);
+  queue_print(queue_float);
+
+  queue_destroy(queue_float);
+}
+
+void test_double() {
+  Queue_t queue_double = queue_create(DOUBLE); 
+  double f = 3.141592f;
+  double temp = f;
+
+  printf("\n*** Adding 10 double elements to the queue ***\n");
+  for(int i = 1; i <= 10; i++) {
+    temp = (i + f) * 7.4525;
+    queue_offer(queue_double, (void *)&temp);
+  }
+  queue_print(queue_double);
+
+  printf("\n*** Peeking queue's front ***\n");
+  type_t first = queue_peek(queue_double);
+  printf("Peeking queue's first element: %.6f\n", *(double *) first);
+  queue_print(queue_double);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_double);
+  printf("Polling queue's first element: %.6f\n", *(double *) first);
+  queue_print(queue_double);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_double);
+  printf("Polling queue's first element: %.6f\n", *(double *) first);
+  queue_print(queue_double);
+
+  queue_destroy(queue_double);
+}
+
+void test_string() {
+  Queue_t queue_string = queue_create(STRING); 
+  char *array[] = { "Testing", "my", "generic", "stack", "structure", \
+                    "on", "C", "language", "How", "cool!" };
+
+  printf("\n*** Adding 10 string elements to the queue ***\n");
+  for(int i = 0; i < 10; i++)
+    queue_offer(queue_string, (void *)array[i]);
+  queue_print(queue_string);
+
+  printf("\n*** Peeking queue's front ***\n");
+  type_t first = queue_peek(queue_string);
+  printf("Peeking queue's first element: %s\n", (char *) first);
+  queue_print(queue_string);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_string);
+  printf("Polling queue's first element: %s\n", (char *) first);
+  queue_print(queue_string);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_string);
+  printf("Polling queue's first element: %s\n", (char *) first);
+  queue_print(queue_string);
+
+  queue_destroy(queue_string);
+}

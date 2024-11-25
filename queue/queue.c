@@ -108,7 +108,7 @@ void queue_print(Queue_t q) {
         else if (q->datatype == DOUBLE)
           printf("\t%.6f", VOID_PTR_2_DOUBLE(temp->data));
         else if (q->datatype == STRING)
-          printf("\t%s", temp->data);
+          printf("\t\t%s", temp->data);
 
         temp = temp->next;
       }

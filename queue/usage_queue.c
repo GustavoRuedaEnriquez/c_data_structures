@@ -9,60 +9,83 @@ Test for the queues's functions.
 #include<stdio.h>
 #include<stdlib.h>
 
+void test_uint();
+void test_int();
+void test_ulong();
+void test_long();
+void test_float();
+void test_double();
+void test_string();
+
 int main() {
-    Queue_t queue_1 = queue_create();
-    
-    /* Adding elements */
-    printf("Adding 7 elements.\n");
-    float element_1 = 323.55;
-    float element_2 = 103.52;
-    float element_3 = 212.44;
-    float element_4 = 484.73;
-    float element_5 = 356.32;
-    float element_6 = 214.63;
-    float element_7 = 467.43;
-    queue_offer(queue_1, &element_1);
-    queue_offer(queue_1, &element_2);
-    queue_offer(queue_1, &element_3);
-    queue_offer(queue_1, &element_4);
-    queue_offer(queue_1, &element_5);
-    queue_offer(queue_1, &element_6);
-    queue_offer(queue_1, &element_7);
-    printf("Elements successfully added.\n");
+  printf("====== Testing queue for unsigned integers ======\n");
+  test_uint();
 
-    int size = queue_size(queue_1);
-    printf("Queue's size: %d\n\n", size);
+  printf("\n\n\n");
 
+  printf("====== Testing queue for integers ======\n");
+  test_int();
 
-    /* Peeking on a element */
-    type_t first = queue_peek(queue_1);
-    printf("Peeking queue's first element: %.2f\n", *(float *) first);
-    size = queue_size(queue_1);
-    printf("Queue's size: %d\n\n", size);
-
-    /* Polling one element */
-    first = queue_poll(queue_1);
-    printf("Polling queue's first element: %.2f\n", *(float *) first);
-    size = queue_size(queue_1);
-    printf("Queue's size: %d\n\n", size);
-
-    /* Polling one element */
-    first = queue_poll(queue_1);
-    printf("Polling queue's first element: %.2f\n", *(float *) first);
-    size = queue_size(queue_1);
-    printf("Queue's size: %d\n\n", size);
-
-    /* Polling one element */
-    first = queue_poll(queue_1);
-    printf("Polling queue's first element: %.2f\n", *(float *) first);
-    size = queue_size(queue_1);
-    printf("Queue's size: %d\n\n", size);
-
-    /* Polling one element */
-    first = queue_poll(queue_1);
-    printf("Polling queue's first element: %.2f\n", *(float *) first);
-    size = queue_size(queue_1);
-    printf("Queue's size: %d\n\n", size);
+  printf("\n\n\n");
 
     return 0;
 }
+
+void test_uint()
+{
+  Queue_t queue_uint = queue_create(UINT); 
+
+  printf("\n*** Adding 10 unsigned integers elements to the queue ***\n");
+  for(unsigned int i = 1; i <= 10; i++)
+    queue_offer(queue_uint, (void *)&i);
+  queue_print(queue_uint);
+
+  printf("\n*** Peeking queue's front ***\n");
+  type_t first = queue_peek(queue_uint);
+  printf("Peeking queue's first element: %u\n", *(unsigned int *) first);
+  queue_print(queue_uint);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_uint);
+  printf("Polling queue's first element: %u\n", *(unsigned int *) first);
+  queue_print(queue_uint);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_uint);
+  printf("Polling queue's first element: %u\n", *(unsigned int *) first);
+  queue_print(queue_uint);
+
+  queue_destroy(queue_uint);
+}
+
+void test_int() {
+  Queue_t queue_int = queue_create(INT); 
+
+  printf("\n*** Adding 10 integers elements to the queue ***\n");
+  for(int i = -5; i <= 5; i++)
+    queue_offer(queue_int, (void *)&i);
+  queue_print(queue_int);
+
+  printf("\n*** Peeking queue's front ***\n");
+  type_t first = queue_peek(queue_int);
+  printf("Peeking queue's first element: %d\n", *(int *) first);
+  queue_print(queue_int);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_int);
+  printf("Polling queue's first element: %d\n", *(int *) first);
+  queue_print(queue_int);
+
+  printf("\n*** Polling one element of the queue ***\n");
+  first = queue_poll(queue_int);
+  printf("Polling queue's first element: %d\n", *(int *) first);
+  queue_print(queue_int);
+
+  queue_destroy(queue_int);
+}
+
+void test_ulong();
+void test_long();
+void test_float();
+void test_double();
+void test_string();

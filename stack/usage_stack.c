@@ -116,7 +116,7 @@ void test_long() {
     Stack_t stack_long = stack_create(LONG);
 
   printf("\n*** Adding 10 long elements to the stack ***\n");
-  long n = 429496729;
+  long n = 42946729;
   long temp = n;
   int sign = 1;
   for(long i = 1; i <= 10; i++)

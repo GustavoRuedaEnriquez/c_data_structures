@@ -39,11 +39,9 @@ void queue_destroy(Queue_t q) {
 void queue_offer(Queue_t q, type_t data) {
   Queue_Node_t new_node = calloc( 1, sizeof(struct Queue_node_str));
   memset(new_node, 0, sizeof(struct Queue_node_str));
-  
-  size_t data_size = GET_DATA_SIZE(q->datatype, data); 
-  new_node->data = malloc(data_size);
-  memset(new_node->data, 0, data_size);
-  memcpy(new_node->data, data, data_size);
+  new_node->data = malloc(GET_DATA_SIZE(q->datatype, data));
+  memset(new_node->data, 0, GET_DATA_SIZE(q->datatype, data));
+  memcpy(new_node->data, data, GET_COPY_DATA_SIZE(q->datatype, data));
 
   if (q->size == 0) {
     q->first = new_node;
@@ -95,19 +93,19 @@ void queue_print(Queue_t q) {
       printf("Front:");
       while (temp != NULL) {
 
-        if (q->datatype == UINT)
+        if (q->datatype == DATATYPE_UINT)
           printf("\t%u", VOID_PTR_2_UINT(temp->data));
-        else if (q->datatype == INT)
+        else if (q->datatype == DATATYPE_INT)
           printf("\t%d", VOID_PTR_2_INT(temp->data));
-        else if (q->datatype == ULONG)
+        else if (q->datatype == DATATYPE_ULONG)
           printf("\t%lu", VOID_PTR_2_ULONG(temp->data));
-        else if (q->datatype == LONG)
+        else if (q->datatype == DATATYPE_LONG)
           printf("\t%ld", VOID_PTR_2_LONG(temp->data));
-        else if (q->datatype == FLOAT)
+        else if (q->datatype == DATATYPE_FLOAT)
           printf("\t%.6f", VOID_PTR_2_FLOAT(temp->data));
-        else if (q->datatype == DOUBLE)
+        else if (q->datatype == DATATYPE_DOUBLE)
           printf("\t%.6f", VOID_PTR_2_DOUBLE(temp->data));
-        else if (q->datatype == STRING)
+        else if (q->datatype == DATATYPE_STRING)
           printf("\t\t%s", temp->data);
 
         temp = temp->next;

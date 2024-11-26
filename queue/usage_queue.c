@@ -58,7 +58,7 @@ int main() {
 
 void test_uint()
 {
-  Queue_t queue_uint = queue_create(UINT); 
+  Queue_t queue_uint = queue_create(DATATYPE_UINT); 
 
   printf("\n*** Adding 10 unsigned integers elements to the queue ***\n");
   for(unsigned int i = 1; i <= 10; i++)
@@ -84,7 +84,7 @@ void test_uint()
 }
 
 void test_int() {
-  Queue_t queue_int = queue_create(INT); 
+  Queue_t queue_int = queue_create(DATATYPE_INT); 
 
   printf("\n*** Adding 10 integers elements to the queue ***\n");
   for(int i = -5; i <= 5; i++)
@@ -111,7 +111,7 @@ void test_int() {
 
 void test_ulong()
 {
-  Queue_t queue_ulong = queue_create(ULONG); 
+  Queue_t queue_ulong = queue_create(DATATYPE_ULONG); 
   unsigned long n = 429496729;
   unsigned long temp = n;
 
@@ -141,7 +141,7 @@ void test_ulong()
 }
 
 void test_long() {
-  Queue_t queue_long = queue_create(LONG); 
+  Queue_t queue_long = queue_create(DATATYPE_LONG); 
   long n = 42934729;
   long temp = n;
   int sign = 1;
@@ -173,7 +173,7 @@ void test_long() {
 }
 
 void test_float() {
-  Queue_t queue_float = queue_create(FLOAT); 
+  Queue_t queue_float = queue_create(DATATYPE_FLOAT); 
   float f = 1.476f;
   float temp = f;
 
@@ -203,7 +203,7 @@ void test_float() {
 }
 
 void test_double() {
-  Queue_t queue_double = queue_create(DOUBLE); 
+  Queue_t queue_double = queue_create(DATATYPE_DOUBLE); 
   double f = 3.141592f;
   double temp = f;
 
@@ -233,7 +233,7 @@ void test_double() {
 }
 
 void test_string() {
-  Queue_t queue_string = queue_create(STRING); 
+  Queue_t queue_string = queue_create(DATATYPE_STRING); 
   char *array[] = { "Testing", "my", "generic", "stack", "structure", \
                     "on", "C", "language", "How", "cool!" };
 

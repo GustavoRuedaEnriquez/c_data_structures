@@ -46,13 +46,12 @@ type_t stack_top(Stack_t s) {
 }
 
 void stack_push(Stack_t s, type_t data) {
-  Stack_Node_t new_node = (Stack_Node_t) calloc(1, sizeof(struct Stack_Node_str));
+  Stack_Node_t new_node = (Stack_Node_t) malloc(sizeof(struct Stack_Node_str));
   memset(new_node, 0, sizeof(struct Stack_Node_str));
-
   size_t data_size = GET_DATA_SIZE(s->datatype, data); 
-  new_node->data = malloc(data_size);
-  memset(new_node->data, 0, data_size);
-  memcpy(new_node->data, data, data_size);
+  new_node->data = malloc(GET_DATA_SIZE(s->datatype, data));
+  memset(new_node->data, 0, GET_DATA_SIZE(s->datatype, data));
+  memcpy(new_node->data, data, GET_COPY_DATA_SIZE(s->datatype, data));
   
   new_node->prior = s->top;
   s->size++;
@@ -85,31 +84,30 @@ void stack_print(Stack_t s) {
   if (s->size == 0)
     printf("The stack is empty\n");
   else {
-    if (s->datatype == MIXED)
+    if (s->datatype == DATATYPE_MIXED)
       printf("Stack's data is mixed, unable to fully print its contents\n");
     else {
       Stack_Node_t temp = s->top;
       printf("Stack's size: %d\n", s->size);
-      printf("Top:");
       while (temp != NULL) {
-
-        if (s->datatype == UINT)
-          printf("\t%u\n", VOID_PTR_2_UINT(temp->data));
-        else if (s->datatype == INT)
-          printf("\t%d\n", VOID_PTR_2_INT(temp->data));
-        else if (s->datatype == ULONG)
-          printf("\t%lu\n", VOID_PTR_2_ULONG(temp->data));
-        else if (s->datatype == LONG)
-          printf("\t%ld\n", VOID_PTR_2_LONG(temp->data));
-        else if (s->datatype == FLOAT)
-          printf("\t%.6f\n", VOID_PTR_2_FLOAT(temp->data));
-        else if (s->datatype == DOUBLE)
-          printf("\t%.6f\n", VOID_PTR_2_DOUBLE(temp->data));
-        else if (s->datatype == STRING)
-          printf("\t%s\n", temp->data);
-
+        printf("---\n");
+        if (s->datatype == DATATYPE_UINT)
+          printf("|%u\n", VOID_PTR_2_UINT(temp->data));
+        else if (s->datatype == DATATYPE_INT)
+          printf("|%d\n", VOID_PTR_2_INT(temp->data));
+        else if (s->datatype == DATATYPE_ULONG)
+          printf("|%lu\n", VOID_PTR_2_ULONG(temp->data));
+        else if (s->datatype == DATATYPE_LONG)
+          printf("|%ld\n", VOID_PTR_2_LONG(temp->data));
+        else if (s->datatype == DATATYPE_FLOAT)
+          printf("|%.6f\n", VOID_PTR_2_FLOAT(temp->data));
+        else if (s->datatype == DATATYPE_DOUBLE)
+          printf("|%.6f\n", VOID_PTR_2_DOUBLE(temp->data));
+        else if (s->datatype == DATATYPE_STRING)
+          printf("|%s\n", temp->data);
         temp = temp->prior;
       }
+      printf("---\n");
     }
   }
   return;

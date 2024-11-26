@@ -14,13 +14,23 @@ Nov 23rd 2024
 #define VOID_PTR_2_DOUBLE(x)   (*(double*)x)
 #define VOID_PTR_2_CHAR_PTR(x) ((char*)x)
 
-#define GET_DATA_SIZE(t,d)  ((t==UINT)  ?sizeof(unsigned int)   :\
-                             (t==INT)   ?sizeof(int)            :\
-                             (t==ULONG)  ?sizeof(unsigned long) :\
-                             (t==LONG)  ?sizeof(long)           :\
-                             (t==FLOAT) ?sizeof(float)          :\
-                             (t==DOUBLE)?sizeof(double)         :\
-                             (t==STRING)?(sizeof(char) * strlen(d)) + 1 : -1)
+#define GET_DATA_SIZE(t,d)  \
+((t==DATATYPE_UINT)  ? sizeof(unsigned int)   :\
+ (t==DATATYPE_INT)   ? sizeof(int)            :\
+ (t==DATATYPE_ULONG) ? sizeof(unsigned long)  :\
+ (t==DATATYPE_LONG)  ? sizeof(long)           :\
+ (t==DATATYPE_FLOAT) ? sizeof(float)          :\
+ (t==DATATYPE_DOUBLE)? sizeof(double)         :\
+ (t==DATATYPE_STRING)? (sizeof(char) * strlen(d)) + 1 : -1)
+
+#define GET_COPY_DATA_SIZE(t,d)  \
+((t==DATATYPE_UINT)  ? sizeof(unsigned int)      :\
+ (t==DATATYPE_INT)   ? sizeof(int)               :\
+ (t==DATATYPE_ULONG) ? sizeof(unsigned long)     :\
+ (t==DATATYPE_LONG)  ? sizeof(long)              :\
+ (t==DATATYPE_FLOAT) ? sizeof(float)             :\
+ (t==DATATYPE_DOUBLE)? sizeof(double)            :\
+ (t==DATATYPE_STRING)? (sizeof(char) * strlen(d)): -1)
 
 typedef void * type_t;
 
@@ -30,14 +40,14 @@ typedef enum {
 } bool_t;
 
 typedef enum {
-  UINT,
-  INT,
-  ULONG,
-  LONG,
-  FLOAT,
-  DOUBLE,
-  STRING,
-  MIXED,
+  DATATYPE_UINT,
+  DATATYPE_INT,
+  DATATYPE_ULONG,
+  DATATYPE_LONG,
+  DATATYPE_FLOAT,
+  DATATYPE_DOUBLE,
+  DATATYPE_STRING,
+  DATATYPE_MIXED,
 } datatype_t;
 
 #endif /* BASIC_DEFS_H_ */

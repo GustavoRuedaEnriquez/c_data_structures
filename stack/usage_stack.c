@@ -55,7 +55,7 @@ int main() {
 }
 
 void test_uint() {
-  Stack_t stack_uint = stack_create(UINT);
+  Stack_t stack_uint = stack_create(DATATYPE_UINT);
 
   printf("\n*** Adding 10 unsigned integers elements to the stack ***\n");
   for(unsigned int i = 1; i <= 10; i++)
@@ -72,7 +72,7 @@ void test_uint() {
   stack_destroy(stack_uint);
 }
 void test_int() {
-  Stack_t stack_int = stack_create(INT);
+  Stack_t stack_int = stack_create(DATATYPE_INT);
 
   printf("\n*** Adding 10 integer elements to the stack ***\n");
   for(int i = -5; i <= 5; i++)
@@ -91,7 +91,7 @@ void test_int() {
 }
 
 void test_ulong() {
-  Stack_t stack_ulong = stack_create(ULONG);
+  Stack_t stack_ulong = stack_create(DATATYPE_ULONG);
 
   printf("\n*** Adding 10 unsigned long elements to the stack ***\n");
   unsigned long n = 429496729;
@@ -113,7 +113,7 @@ void test_ulong() {
   stack_destroy(stack_ulong);
 }
 void test_long() {
-    Stack_t stack_long = stack_create(LONG);
+    Stack_t stack_long = stack_create(DATATYPE_LONG);
 
   printf("\n*** Adding 10 long elements to the stack ***\n");
   long n = 42946729;
@@ -138,7 +138,7 @@ void test_long() {
 }
 
 void test_float() {
-  Stack_t stack_float = stack_create(FLOAT);
+  Stack_t stack_float = stack_create(DATATYPE_FLOAT);
   float f = 1.476f;
   float temp = f;
   printf("\n*** Adding 10 float elements to the stack ***\n");
@@ -159,7 +159,7 @@ void test_float() {
 }
 
 void test_double() {
-  Stack_t stack_double = stack_create(DOUBLE);
+  Stack_t stack_double = stack_create(DATATYPE_DOUBLE);
   double f = 3.141592f;
   double temp = f;
   printf("\n*** Adding 10 double elements to the stack ***\n");
@@ -180,7 +180,7 @@ void test_double() {
 }
 
 void test_string() {
-  Stack_t stack_string = stack_create(STRING);
+  Stack_t stack_string = stack_create(DATATYPE_STRING);
 
   printf("\n*** Adding 10 string elements to the stack ***\n");
   char *array[] = { "Testing", "my", "generic", "stack", "structure", \

@@ -134,35 +134,40 @@ bool_t linked_list_remove_index(Linked_List_t list, unsigned int index) {
   if (index > list->size)
     return FALSE;
   else {
-    Linked_List_Node_t node = list->front;
-    // Deleting the first element on the linked list.
+    Linked_List_Node_t current_node = list->front;
+
+    // Delete first element.
     if (index == 1) {
-      list->front = node->next;
-      free(node->data);
-      free(node);
+      list->front = current_node->next;
+      free(current_node->data);
+      free(current_node);
     }
+    // Delete any other element.
     else {
-      Linked_List_Node_t next_node = node->next;
+      Linked_List_Node_t next_node = current_node->next;
+
       for (unsigned int i = 1; i < list->size; i++) {
-        if (index == i + 1) {
-          // Deleting the last element on the linked list.
+        if (i + 1 == index) {
+          // Delete last element.
           if (index == list->size) {
-            node->next = NULL;
-            list->back = node;
+            current_node->next = NULL;
+            list->back = current_node;
             break;
           }
-          // Deleting any other element on the linked list.
+          // Delete element the middle.
           else {
-            node->next = next_node->next;
+            current_node->next = next_node->next;
             break;
           }
         }
-        node = node->next;
+        current_node = current_node->next;
         next_node = next_node->next;
       }
+
       free(next_node->data);
       free(next_node);
     }
+    
     list->size--;
     return TRUE;
   }

@@ -167,7 +167,7 @@ bool_t linked_list_remove_index(Linked_List_t list, unsigned int index) {
       free(next_node->data);
       free(next_node);
     }
-    
+
     list->size--;
     return TRUE;
   }

@@ -39,9 +39,12 @@ void queue_destroy(Queue_t q) {
 void queue_offer(Queue_t q, type_t data) {
   Queue_Node_t new_node = calloc( 1, sizeof(struct Queue_node_str));
   memset(new_node, 0, sizeof(struct Queue_node_str));
+
   new_node->data = malloc(GET_DATA_SIZE(q->datatype, data));
   memset(new_node->data, 0, GET_DATA_SIZE(q->datatype, data));
   memcpy(new_node->data, data, GET_COPY_DATA_SIZE(q->datatype, data));
+
+  new_node->next = NULL;
 
   if (q->size == 0) {
     q->first = new_node;

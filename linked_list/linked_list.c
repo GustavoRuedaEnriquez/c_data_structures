@@ -42,8 +42,12 @@ bool_t linked_list_add(Linked_List_t list, type_t data) {
 bool_t linked_list_add_front(Linked_List_t list, type_t data) {
   Linked_List_Node_t new_node = malloc(sizeof(struct Linked_List_node_str));
   memset(new_node, 0, sizeof(struct Linked_List_node_str));
+
   new_node->data = malloc(GET_DATA_SIZE(list->datatype, data));
+  memset(new_node->data, 0, GET_DATA_SIZE(list->datatype, data));
   memcpy(new_node->data, data, GET_COPY_DATA_SIZE(list->datatype, data));
+  
+  new_node->next = NULL;
 
   if (list->size == 0) {
     list->front = new_node;
@@ -61,8 +65,12 @@ bool_t linked_list_add_front(Linked_List_t list, type_t data) {
 bool_t linked_list_add_back(Linked_List_t list, type_t data) {
   Linked_List_Node_t new_node = malloc(sizeof(struct Linked_List_node_str));
   memset(new_node, 0, sizeof(struct Linked_List_node_str));
+
   new_node->data = malloc(GET_DATA_SIZE(list->datatype, data));
+  memset(new_node->data, 0, GET_DATA_SIZE(list->datatype, data));
   memcpy(new_node->data, data, GET_COPY_DATA_SIZE(list->datatype, data));
+  
+  new_node->next = NULL;
 
   if (list->size == 0) {
     list->front = new_node;
@@ -82,10 +90,13 @@ bool_t linked_list_set(Linked_List_t list, unsigned int index, type_t data) {
     return FALSE;
   else {
     Linked_List_Node_t temp = list->front;   
+    
     for (int i = 1; i < index; i++)
       temp = temp->next;
+
     free(temp->data);
     temp->data = malloc(GET_DATA_SIZE(list->datatype, data));
+    memset(temp->data, 0, GET_DATA_SIZE(list->datatype, data));
     memcpy(temp->data, data, GET_COPY_DATA_SIZE(list->datatype, data));
     return TRUE;
   }

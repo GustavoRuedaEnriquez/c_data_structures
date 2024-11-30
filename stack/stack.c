@@ -53,7 +53,7 @@ void stack_push(Stack_t s, type_t data) {
   memset(new_node->data, 0, GET_DATA_SIZE(s->datatype, data));
   memcpy(new_node->data, data, GET_COPY_DATA_SIZE(s->datatype, data));
   
-  new_node->next = NULL;
+  new_node->prior = NULL;
 
   new_node->prior = s->top;
   s->size++;

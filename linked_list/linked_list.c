@@ -138,7 +138,7 @@ int linked_list_index_of(Linked_List_t list, type_t data) {
     }
     node = node->next;
   }
-  return index;
+  return index + 1;
 }
 
 bool_t linked_list_remove_index(Linked_List_t list, unsigned int index) {

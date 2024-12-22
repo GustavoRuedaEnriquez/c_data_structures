@@ -11,12 +11,12 @@ void test_uint();
 void test_int();
 void test_ulong();
 void test_long();
-//void test_float();
-//void test_double();
+void test_float();
+void test_double();
 void test_string();
 
 int main() {
-  /*printf("====== Testing queue for unsigned integers ======\n");
+  printf("====== Testing queue for unsigned integers ======\n");
   test_uint();
 
   printf("\n\n\n");
@@ -29,14 +29,14 @@ int main() {
   printf("====== Testing queue for unsigned longs ======\n");
   test_ulong();
 
-  printf("\n\n\n");*/
+  printf("\n\n\n");
 
   printf("====== Testing queue for longs ======\n");
   test_long();
 
   printf("\n\n\n");
 
-  /*printf("====== Testing queue for floats ======\n");
+  printf("====== Testing queue for floats ======\n");
   test_float();
 
   printf("\n\n\n");
@@ -49,9 +49,8 @@ int main() {
   printf("====== Testing queue for strings ======\n");
   test_string();
 
-  printf("\n\n\n");*/
-
-    return 0;
+  printf("\n\n\n");
+  return 0;
 }
 
 void test_uint() {
@@ -275,79 +274,235 @@ void test_ulong() {
 }
 
 void test_long() {
-  Linked_List_t list_ulong = linked_list_create(DATATYPE_LONG);
+  Linked_List_t list_long = linked_list_create(DATATYPE_LONG);
   long r = 0;
 
   printf("\n*** Adding 10 long elements to the linked list ***\n");
   for(int i = 0; i < 10; i++) {
     r = rand() % (283640 - (-214640) + 1) + (-214640);
-    linked_list_add(list_ulong, (void *)&r);
+    linked_list_add(list_long, (void *)&r);
   }
 
-  type_t front = linked_list_get_front(list_ulong);
-  type_t back = linked_list_get_back(list_ulong);
+  type_t front = linked_list_get_front(list_long);
+  type_t back = linked_list_get_back(list_long);
   printf("Front: %ld\tBack: %ld\n", *(long *)front, *(long *)back);
-  linked_list_print(list_ulong);
+  linked_list_print(list_long);
 
   printf("\n*** Changing the value of the 4th element ***\n");
   long value = -5687634;
-  linked_list_set(list_ulong, 4, (void *)&value);
-  front = linked_list_get_front(list_ulong);
-  back = linked_list_get_back(list_ulong);
+  linked_list_set(list_long, 4, (void *)&value);
+  front = linked_list_get_front(list_long);
+  back = linked_list_get_back(list_long);
   printf("Front: %ld\tBack: %ld\n", *(long *)front, *(long *)back);
-  linked_list_print(list_ulong);
+  linked_list_print(list_long);
 
   printf("\n*** Adding a value to the front of the linked list ***\n");
   value = 120988;
-  linked_list_add_front(list_ulong, (void *)&value);
-  front = linked_list_get_front(list_ulong);
-  back = linked_list_get_back(list_ulong);
+  linked_list_add_front(list_long, (void *)&value);
+  front = linked_list_get_front(list_long);
+  back = linked_list_get_back(list_long);
   printf("Front: %ld\tBack: %ld\n", *(long *)front, *(long *)back);
-  linked_list_print(list_ulong);
+  linked_list_print(list_long);
 
   printf("\n*** Adding a value to the back of the linked list ***\n");
   value = -63453;
-  linked_list_add_back(list_ulong, (void *)&value);
-  front = linked_list_get_front(list_ulong);
-  back = linked_list_get_back(list_ulong);
+  linked_list_add_back(list_long, (void *)&value);
+  front = linked_list_get_front(list_long);
+  back = linked_list_get_back(list_long);
   printf("Front: %ld\tBack: %ld\n", *(long *)front, *(long *)back);
-  linked_list_print(list_ulong);
+  linked_list_print(list_long);
   
   printf("\n*** Getting the 7th element of the list ***\n");
-  type_t search = linked_list_get_index(list_ulong, 7);
+  type_t search = linked_list_get_index(list_long, 7);
   printf("7th element contains: %ld\n", *(long *)search);
 
   printf("\n*** Searching for the element that has value of -5687634 ***\n");
   value = -5687634;
-  int index = linked_list_index_of(list_ulong, (void *)&value);
+  int index = linked_list_index_of(list_long, (void *)&value);
   printf("Desired node (%ld) is on index %d\n", value, index);
 
   printf("\n*** Deleting 1st element of the list ***\n");
-  linked_list_remove_front(list_ulong);
-  front = linked_list_get_front(list_ulong);
-  back = linked_list_get_back(list_ulong);
+  linked_list_remove_front(list_long);
+  front = linked_list_get_front(list_long);
+  back = linked_list_get_back(list_long);
   printf("Front: %ld\tBack: %ld\n", *(long *)front, *(long *)back);
-  linked_list_print(list_ulong);
+  linked_list_print(list_long);
 
   printf("\n*** Deleting last element of the list ***\n");
-  linked_list_remove_back(list_ulong);
-  front = linked_list_get_front(list_ulong);
-  back = linked_list_get_back(list_ulong);
+  linked_list_remove_back(list_long);
+  front = linked_list_get_front(list_long);
+  back = linked_list_get_back(list_long);
   printf("Front: %ld\tBack: %ld\n", *(long *)front, *(long *)back);
-  linked_list_print(list_ulong);
+  linked_list_print(list_long);
 
   printf("\n*** Deleting 6th element of the list ***\n");
-  linked_list_remove_index(list_ulong, 6);
-  front = linked_list_get_front(list_ulong);
-  back = linked_list_get_back(list_ulong);
+  linked_list_remove_index(list_long, 6);
+  front = linked_list_get_front(list_long);
+  back = linked_list_get_back(list_long);
   printf("Front: %ld\tBack: %ld\n", *(long *)front, *(long *)back);
-  linked_list_print(list_ulong);
+  linked_list_print(list_long);
 
   printf("\n*** Clearing the list ***\n");
-  linked_list_clear(list_ulong);
-  linked_list_print(list_ulong);
+  linked_list_clear(list_long);
+  linked_list_print(list_long);
 
-  linked_list_destroy(list_ulong);
+  linked_list_destroy(list_long);
+}
+
+void test_float() {
+  Linked_List_t list_float = linked_list_create(DATATYPE_FLOAT);
+  float f = 465.6812f;
+  int random = 0;
+
+  printf("\n*** Adding 10 long elements to the linked list ***\n");
+  for(int i = 0; i < 10; i++) {
+    random = rand() % (10 - (-10) + 1) + (-10);
+    f *= random;
+    linked_list_add(list_float, (void *)&f);
+  }
+
+  type_t front = linked_list_get_front(list_float);
+  type_t back = linked_list_get_back(list_float);
+  printf("Front: %.6f\tBack: %.6f\n", *(float *)front, *(float *)back);
+  linked_list_print(list_float);
+
+  printf("\n*** Changing the value of the 4th element ***\n");
+  float value = 3.141592;
+  linked_list_set(list_float, 4, (void *)&value);
+  front = linked_list_get_front(list_float);
+  back = linked_list_get_back(list_float);
+  printf("Front: %.6f\tBack: %.6f\n", *(float *)front, *(float *)back);
+  linked_list_print(list_float);
+
+  printf("\n*** Adding a value to the front of the linked list ***\n");
+  value = 120988.45;
+  linked_list_add_front(list_float, (void *)&value);
+  front = linked_list_get_front(list_float);
+  back = linked_list_get_back(list_float);
+  printf("Front: %.6f\tBack: %.6f\n", *(float *)front, *(float *)back);
+  linked_list_print(list_float);
+
+  printf("\n*** Adding a value to the back of the linked list ***\n");
+  value = -63453.4562;
+  linked_list_add_back(list_float, (void *)&value);
+  front = linked_list_get_front(list_float);
+  back = linked_list_get_back(list_float);
+  printf("Front: %.6f\tBack: %.6f\n", *(float *)front, *(float *)back);
+  linked_list_print(list_float);
+  
+  printf("\n*** Getting the 7th element of the list ***\n");
+  type_t search = linked_list_get_index(list_float, 7);
+  printf("7th element contains: %.6f\n", *(float *)search);
+
+  printf("\n*** Searching for the element that has value of 3.141592 ***\n");
+  value = 3.141592;
+  int index = linked_list_index_of(list_float, (void *)&value);
+  printf("Desired node (%.6f) is on index %d\n", value, index);
+
+  printf("\n*** Deleting 1st element of the list ***\n");
+  linked_list_remove_front(list_float);
+  front = linked_list_get_front(list_float);
+  back = linked_list_get_back(list_float);
+  printf("Front: %.6f\tBack: %.6f\n", *(float *)front, *(float *)back);
+  linked_list_print(list_float);
+
+  printf("\n*** Deleting last element of the list ***\n");
+  linked_list_remove_back(list_float);
+  front = linked_list_get_front(list_float);
+  back = linked_list_get_back(list_float);
+  printf("Front: %.6f\tBack: %.6f\n", *(float *)front, *(float *)back);
+  linked_list_print(list_float);
+
+  printf("\n*** Deleting 6th element of the list ***\n");
+  linked_list_remove_index(list_float, 6);
+  front = linked_list_get_front(list_float);
+  back = linked_list_get_back(list_float);
+  printf("Front: %.6f\tBack: %.6f\n", *(float *)front, *(float *)back);
+  linked_list_print(list_float);
+
+  printf("\n*** Clearing the list ***\n");
+  linked_list_clear(list_float);
+  linked_list_print(list_float);
+
+  linked_list_destroy(list_float);
+}
+
+void test_double() {
+  Linked_List_t list_double = linked_list_create(DATATYPE_DOUBLE);
+  double f = 465.6812f;
+  int random = 0;
+
+  printf("\n*** Adding 10 long elements to the linked list ***\n");
+  for(int i = 0; i < 10; i++) {
+    random = rand() % (10 - (-10) + 1) + (-10);
+    f *= random;
+    linked_list_add(list_double, (void *)&f);
+  }
+
+  type_t front = linked_list_get_front(list_double);
+  type_t back = linked_list_get_back(list_double);
+  printf("Front: %.6f\tBack: %.6f\n", *(double *)front, *(double *)back);
+  linked_list_print(list_double);
+
+  printf("\n*** Changing the value of the 4th element ***\n");
+  double value = 3.141592;
+  linked_list_set(list_double, 4, (void *)&value);
+  front = linked_list_get_front(list_double);
+  back = linked_list_get_back(list_double);
+  printf("Front: %.6f\tBack: %.6f\n", *(double *)front, *(double *)back);
+  linked_list_print(list_double);
+
+  printf("\n*** Adding a value to the front of the linked list ***\n");
+  value = 120988.45;
+  linked_list_add_front(list_double, (void *)&value);
+  front = linked_list_get_front(list_double);
+  back = linked_list_get_back(list_double);
+  printf("Front: %.6f\tBack: %.6f\n", *(double *)front, *(double *)back);
+  linked_list_print(list_double);
+
+  printf("\n*** Adding a value to the back of the linked list ***\n");
+  value = -63453.4562;
+  linked_list_add_back(list_double, (void *)&value);
+  front = linked_list_get_front(list_double);
+  back = linked_list_get_back(list_double);
+  printf("Front: %.6f\tBack: %.6f\n", *(double *)front, *(double *)back);
+  linked_list_print(list_double);
+  
+  printf("\n*** Getting the 7th element of the list ***\n");
+  type_t search = linked_list_get_index(list_double, 7);
+  printf("7th element contains: %.6f\n", *(double *)search);
+
+  printf("\n*** Searching for the element that has value of 3.141592 ***\n");
+  value = 3.141592;
+  int index = linked_list_index_of(list_double, (void *)&value);
+  printf("Desired node (%.6f) is on index %d\n", value, index);
+
+  printf("\n*** Deleting 1st element of the list ***\n");
+  linked_list_remove_front(list_double);
+  front = linked_list_get_front(list_double);
+  back = linked_list_get_back(list_double);
+  printf("Front: %.6f\tBack: %.6f\n", *(double *)front, *(double *)back);
+  linked_list_print(list_double);
+
+  printf("\n*** Deleting last element of the list ***\n");
+  linked_list_remove_back(list_double);
+  front = linked_list_get_front(list_double);
+  back = linked_list_get_back(list_double);
+  printf("Front: %.6f\tBack: %.6f\n", *(double *)front, *(double *)back);
+  linked_list_print(list_double);
+
+  printf("\n*** Deleting 6th element of the list ***\n");
+  linked_list_remove_index(list_double, 6);
+  front = linked_list_get_front(list_double);
+  back = linked_list_get_back(list_double);
+  printf("Front: %.6f\tBack: %.6f\n", *(double *)front, *(double *)back);
+  linked_list_print(list_double);
+
+  printf("\n*** Clearing the list ***\n");
+  linked_list_clear(list_double);
+  linked_list_print(list_double);
+
+  linked_list_destroy(list_double);
 }
 
 void test_string() {

@@ -57,7 +57,7 @@ void stack_push(Stack_t, type_t);
  * stack_top
  *
  * DESCRIPTION:
- * Returns the stack's top. This function DOES NOT removes the top element.
+ * Returns the stack's top. This function DOES NOT remove the top element.
  *
  * PARAMETERS:
  * Stack_t - Stack structure from which we want to obtain the top element.

@@ -60,9 +60,18 @@ void test_uint()
 {
   Queue_t queue_uint = queue_create(DATATYPE_UINT); 
 
+  printf("\n*** Checking if queue is empty ***\n");
+  bool_t is_empty = queue_is_empty(queue_uint);
+  printf("Queue empty: %d\n", is_empty);
+
   printf("\n*** Adding 10 unsigned integers elements to the queue ***\n");
   for(unsigned int i = 1; i <= 10; i++)
     queue_offer(queue_uint, (void *)&i);
+
+  printf("\n*** Checking if queue is empty ***\n");
+  is_empty = queue_is_empty(queue_uint);
+  printf("Queue empty: %d\n", is_empty);
+
   queue_print(queue_uint);
 
   printf("\n*** Peeking queue's front ***\n");
@@ -86,10 +95,19 @@ void test_uint()
 void test_int() {
   Queue_t queue_int = queue_create(DATATYPE_INT); 
 
+  printf("\n*** Checking if queue is empty ***\n");
+  bool_t is_empty = queue_is_empty(queue_int);
+  printf("Queue empty: %d\n", is_empty);
+
   printf("\n*** Adding 10 integers elements to the queue ***\n");
   for(int i = -5; i <= 5; i++)
     queue_offer(queue_int, (void *)&i);
   queue_print(queue_int);
+
+  printf("\n*** Checking if queue is empty ***\n");
+  is_empty = queue_is_empty(queue_int);
+
+  printf("Queue empty: %d\n", is_empty);
 
   printf("\n*** Peeking queue's front ***\n");
   type_t first = queue_peek(queue_int);
@@ -115,11 +133,20 @@ void test_ulong()
   unsigned long n = 429496729;
   unsigned long temp = n;
 
+  printf("\n*** Checking if queue is empty ***\n");
+  bool_t is_empty = queue_is_empty(queue_ulong);
+  printf("Queue empty: %d\n", is_empty);
+
   printf("\n*** Adding 10 unsigned long elements to the queue ***\n");
   for(unsigned long i = 1; i <= 10; i++) {
     temp = n * i;
     queue_offer(queue_ulong, (void *)&temp);
   }
+
+  printf("\n*** Checking if queue is empty ***\n");
+  is_empty = queue_is_empty(queue_ulong);
+  printf("Queue empty: %d\n", is_empty);
+
   queue_print(queue_ulong);
 
   printf("\n*** Peeking queue's front ***\n");
@@ -146,12 +173,21 @@ void test_long() {
   long temp = n;
   int sign = 1;
 
+  printf("\n*** Checking if queue is empty ***\n");
+  bool_t is_empty = queue_is_empty(queue_long);
+  printf("Queue empty: %d\n", is_empty);
+
   printf("\n*** Adding 10 long elements to the queue ***\n");
   for(long i = 1; i <= 10; i++) {
     sign = (i % 2) ? -1 : 1; 
     temp = n * i * sign;
     queue_offer(queue_long, (void *)&temp);
   }
+
+  printf("\n*** Checking if queue is empty ***\n");
+  is_empty = queue_is_empty(queue_long);
+  printf("Queue empty: %d\n", is_empty);
+
   queue_print(queue_long);
 
   printf("\n*** Peeking queue's front ***\n");
@@ -177,11 +213,20 @@ void test_float() {
   float f = 1.476f;
   float temp = f;
 
+  printf("\n*** Checking if queue is empty ***\n");
+  bool_t is_empty = queue_is_empty(queue_float);
+  printf("Queue empty: %d\n", is_empty);
+
   printf("\n*** Adding 10 float elements to the queue ***\n");
   for(int i = 1; i <= 10; i++) {
     temp = (i + f) * 1.5;
     queue_offer(queue_float, (void *)&temp);
   }
+
+  printf("\n*** Checking if queue is empty ***\n");
+  is_empty = queue_is_empty(queue_float);
+  printf("Queue empty: %d\n", is_empty);
+
   queue_print(queue_float);
 
   printf("\n*** Peeking queue's front ***\n");
@@ -207,11 +252,20 @@ void test_double() {
   double f = 3.141592f;
   double temp = f;
 
+  printf("\n*** Checking if queue is empty ***\n");
+  bool_t is_empty = queue_is_empty(queue_double);
+  printf("Queue empty: %d\n", is_empty);
+
   printf("\n*** Adding 10 double elements to the queue ***\n");
   for(int i = 1; i <= 10; i++) {
     temp = (i + f) * 7.4525;
     queue_offer(queue_double, (void *)&temp);
   }
+
+  printf("\n*** Checking if queue is empty ***\n");
+  is_empty = queue_is_empty(queue_double);
+  printf("Queue empty: %d\n", is_empty);
+
   queue_print(queue_double);
 
   printf("\n*** Peeking queue's front ***\n");
@@ -237,9 +291,18 @@ void test_string() {
   char *array[] = { "Testing", "my", "generic", "stack", "structure", \
                     "on", "C", "language", "How", "cool!" };
 
+  printf("\n*** Checking if queue is empty ***\n");
+  bool_t is_empty = queue_is_empty(queue_string);
+  printf("Queue empty: %d\n", is_empty);
+
   printf("\n*** Adding 10 string elements to the queue ***\n");
   for(int i = 0; i < 10; i++)
     queue_offer(queue_string, (void *)array[i]);
+
+  printf("\n*** Checking if queue is empty ***\n");
+  is_empty = queue_is_empty(queue_string);
+  printf("Queue empty: %d\n", is_empty);
+
   queue_print(queue_string);
 
   printf("\n*** Peeking queue's front ***\n");

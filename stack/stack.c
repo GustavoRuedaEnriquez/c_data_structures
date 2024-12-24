@@ -35,10 +35,10 @@ Stack_t stack_create(datatype_t type) {
 
 void stack_push(Stack_t s, type_t data) {
   // Allocate memory for a new node.
-  Stack_Node_t new_node = (Stack_Node_t) malloc(sizeof(struct Stack_struct));
-  memset(new_node, 0, sizeof(struct Stack_struct));
+  Stack_Node_t new_node = (Stack_Node_t) malloc(sizeof(struct Stack_Node_struct));
+  memset(new_node, 0, sizeof(struct Stack_Node_struct));
 
-  // Allocate memory for the data the new node will contain.
+  // Allocate memory for the data the new node will storeS.
   new_node->data = malloc(GET_DATA_SIZE(s->datatype, data));
   memset(new_node->data, 0, GET_DATA_SIZE(s->datatype, data));
   memcpy(new_node->data, data, GET_COPY_DATA_SIZE(s->datatype, data));
@@ -51,8 +51,8 @@ void stack_push(Stack_t s, type_t data) {
 
 
 type_t stack_top(Stack_t s) {
-  // If top == NULL, return NULL.
-  if (s->top != NULL) {
+  // If size == 0, return NULL.
+  if (s->size != 0) {
     return s->top->data;
   }
   return NULL;
@@ -60,18 +60,21 @@ type_t stack_top(Stack_t s) {
 
 
 type_t stack_pop(Stack_t s) {
-  // If stack is empty, return NULL
+  // If stack is empty, return NULL.
   if (s->size == 0) {
     return NULL;
   }
 
-  // Save top's data 
-  type_t data;
-  data = s->top->data;
-
-  // Remove stack's top and set new top entry.
-  s->size--;
+ // Set new top element.
+  Stack_Node_t temp = s->top;
   s->top = s->top->prior;
+
+  // Return data of node to be deleted.
+  type_t data;
+  data = temp->data;
+
+  s->size--;
+  free(temp);
   return data;
 }
 

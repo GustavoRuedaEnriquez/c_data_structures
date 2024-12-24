@@ -15,7 +15,7 @@ struct Stack_Node_struct {
 
 struct Stack_struct {
   Stack_Node_t top;
-  unsigned int size;
+  size_t size;
   datatype_t datatype;
 };
 
@@ -76,7 +76,7 @@ type_t stack_pop(Stack_t s) {
 }
 
 
-unsigned int stack_size(Stack_t s) {
+size_t stack_size(Stack_t s) {
   return s->size;
 }
 

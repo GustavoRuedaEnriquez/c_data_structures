@@ -14,9 +14,9 @@ May 16th 2022
 typedef struct Stack_Node_struct * Stack_Node_t;
 
 /* Structure the represents a stack, it has 3 attributes:
- * - Stack_Node_t top: Pointer to the stack's top entry.
- * - unsigned int size: Current stack's size.
- * - datatype_T datatype: Enum that represents the datatype of the entries
+ * - Stack_Node_t top: Pointer to stack's top entry.
+ * - size_t size: Current stack's size.
+ * - datatype_t datatype: Enum that represents the datatype of the entries
  *                        stored on the stack.
  */
 typedef struct Stack_struct * Stack_t;
@@ -25,8 +25,8 @@ typedef struct Stack_struct * Stack_t;
  * stack_create
  *
  * DESCRIPTION:
- * Function used to initialize a stack. Returned stack will have a size of 0
- * and it's top will equal to NULL.
+ * Function used to initialize a stack. Returned stack pointer will have a size
+ * of 0 and it's top will be equal to NULL.
  *
  * PARAMETERS:
  * datatype_t - Indicates the data type that will be stored on the stack.
@@ -44,7 +44,7 @@ Stack_t stack_create(datatype_t);
  * Adds new entry to the stack's top.
  *
  * PARAMETERS:
- * Stack_t - Stack structure which we want to add an entry.
+ * Stack_t - Pointer to stack structure which we want to add an entry.
  * type_t  - Data entry to add to the stack. 
  *
  * RETURNS:
@@ -60,10 +60,11 @@ void stack_push(Stack_t, type_t);
  * Returns the stack's top. This function DOES NOT remove the top element.
  *
  * PARAMETERS:
- * Stack_t - Stack structure from which we want to obtain the top element.
+ * Stack_t - Pointer to stack structure from which we want to obtain the top
+ *           element.
  *
  * RETURNS:
- * type_t - Entry at stack's top.
+ * type_t - Data stored at stack's top.
  */
 type_t stack_top(Stack_t);
 
@@ -72,10 +73,11 @@ type_t stack_top(Stack_t);
  * stack_pop
  *
  * DESCRIPTION:
- * Removes the stack's top and returns it.
+ * Removes the stack's top and returns it's data stored.
  *
  * PARAMETERS:
- * Stack_t - Stack structure from which we want to remove the top element.
+ * Stack_t - Pointer to stack structure from which we want to remove the top
+ *           element.
  *
  * RETURNS:
  * type_t - Entry at stack's top.
@@ -89,12 +91,12 @@ type_t stack_pop(Stack_t);
  * Returns current size of the stack.
  *
  * PARAMETERS:
- * Stack_t - Stack structure from which we want to obtain the size.
+ * Stack_t - Pointer to stack structure from which we want to obtain the size.
  *
  * RETURNS:
  * unsigned int - Current size of the stack.
  */
-unsigned int stack_size(Stack_t);
+size_t stack_size(Stack_t);
 
 
 /* FUNCTION:
@@ -104,7 +106,8 @@ unsigned int stack_size(Stack_t);
  * Tells if stack is empty or not.
  *
  * PARAMETERS:
- * Stack_t - Stack structure from which we want to know if it is empty.
+ * Stack_t - Pointer to stack structure from which we want to know if it is
+ *           empty.
  *
  * RETURNS:
  * bool_t - TRUE/FALSE depending if stack's empty or not.
@@ -119,7 +122,7 @@ bool_t stack_is_empty(Stack_t);
  * Frees the memory used by a stack structure.
  *
  * PARAMETERS:
- * Stack_t - Stack structure to destroy. 
+ * Stack_t - Pointer to stack structure to destroy. 
  *
  * RETURNS:
  * Nothing
@@ -134,7 +137,7 @@ void stack_destroy(Stack_t);
  * Prints all the stack's entries.
  *
  * PARAMETERS:
- * Stack_t - Stack structure to print. 
+ * Stack_t - Pointer to stack structure to print. 
  *
  * RETURNS:
  * Nothing

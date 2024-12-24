@@ -25,7 +25,7 @@ This directory contains the following files:
 * `queue_destroy` - Frees the memory used by a queue structure.
 * `queue_print` - Prints all the queue's entries.
 
-## Using the stack data structure
+## Using the queue data structure
 Please feel free to use this code, to compile and run the executable usage program do the following:
 ```bash
 $ make

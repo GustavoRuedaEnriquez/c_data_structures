@@ -42,15 +42,17 @@ Nov 23rd 2024
  (t==DATATYPE_STRING)? (strcmp(VOID_PTR_2_CHAR_PTR(x), VOID_PTR_2_CHAR_PTR(y))==0) :\
  -1)
 
-#define COMPARE_TYPE_T(t,x,y) \
-((t==DATATYPE_UINT)  ? (VOID_PTR_2_UINT(x) - VOID_PTR_2_UINT(y))                  :\
- (t==DATATYPE_INT)   ? (VOID_PTR_2_INT(x) - VOID_PTR_2_INT(y))                    :\
- (t==DATATYPE_ULONG) ? (VOID_PTR_2_LONG(x) - VOID_PTR_2_LONG(y))                  :\
- (t==DATATYPE_LONG)  ? (VOID_PTR_2_ULONG(x) - VOID_PTR_2_ULONG(y))                :\
- (t==DATATYPE_FLOAT) ? (VOID_PTR_2_FLOAT(x) - VOID_PTR_2_FLOAT(y))                :\
- (t==DATATYPE_DOUBLE)? (VOID_PTR_2_DOUBLE(x) - VOID_PTR_2_DOUBLE(y))              :\
- (t==DATATYPE_STRING)? (strcmp(VOID_PTR_2_CHAR_PTR(x), VOID_PTR_2_CHAR_PTR(y))) :\
+
+#define IS_DATA_LESS_THAN(t,x,y) \
+((t==DATATYPE_UINT)  ? (VOID_PTR_2_UINT(x)<VOID_PTR_2_UINT(y))                  :\
+ (t==DATATYPE_INT)   ? (VOID_PTR_2_INT(x)<VOID_PTR_2_INT(y))                    :\
+ (t==DATATYPE_ULONG) ? (VOID_PTR_2_LONG(x)<VOID_PTR_2_LONG(y))                  :\
+ (t==DATATYPE_LONG)  ? (VOID_PTR_2_ULONG(x)<VOID_PTR_2_ULONG(y))                :\
+ (t==DATATYPE_FLOAT) ? (VOID_PTR_2_FLOAT(x)<VOID_PTR_2_FLOAT(y))                :\
+ (t==DATATYPE_DOUBLE)? (VOID_PTR_2_DOUBLE(x)<VOID_PTR_2_DOUBLE(y))              :\
+ (t==DATATYPE_STRING)? (strcmp(VOID_PTR_2_CHAR_PTR(x),VOID_PTR_2_CHAR_PTR(y))<0) :\
  -1)
+
 typedef void * type_t;
 
 typedef enum {

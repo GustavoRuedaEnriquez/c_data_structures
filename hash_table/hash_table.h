@@ -19,7 +19,7 @@ Nov 23rd 2024
 #define HT_ERR_BUCKET_NODE_ADDED                          (HT_ERR_CODE_BASE + 1)
 #define HT_ERR_BUCKET_NODE_REPLACED                       (HT_ERR_CODE_BASE + 2)
 #define HT_ERR_HASHTABLE_FULL                             (HT_ERR_CODE_BASE + 3)
-
+#define HT_ERR_KEY_NOT_FOUND                              (HT_ERR_CODE_BASE + 4)
 
 typedef void * type_t;
 typedef struct HT_bucket_node_struct  *Bucket_Node_t;
@@ -29,9 +29,9 @@ typedef unsigned int ht_err_code_t;
 
 HashTable_t hashtable_create(datatype_t k_type, datatype_t v_type);
 ht_err_code_t hashtable_insert(HashTable_t ht, type_t key, type_t value);
-ht_err_code_t hashtable_update(HashTable_t ht, type_t key, type_t value);
+type_t hashtable_get(HashTable_t ht, type_t key);
 
-//error_code_t hashtable_get(HashTable_t ht, type_t key, type_t dest);
+//ht_err_code_t hashtable_update(HashTable_t ht, type_t key, type_t value);
 //ht_err_code_t hashtable_delete(HashTable_t ht, type_t key);
 //bool_t hashtable_contains(HashTable_t ht, type_t key);
 

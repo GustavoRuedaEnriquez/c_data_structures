@@ -36,9 +36,13 @@ unsigned int _hash_function(datatype_t key_type, type_t key);
 
 unsigned int _hash_dbj2(char *word);
 
-bool_t _insert_into_bucket(HashTable_Bucket_t bucket,
-                           type_t key, datatype_t k_type,
-                           type_t value, datatype_t val_type);
+ht_err_code_t _insert_into_bucket(HashTable_Bucket_t bucket,
+                                  type_t key, datatype_t k_type,
+                                  type_t value, datatype_t val_type);
+
+type_t _search_on_bucket(HashTable_Bucket_t bucket,
+                         type_t key, datatype_t k_type,
+                         datatype_t v_type, ht_err_code_t *ret);
 
 void _print_bucket(HashTable_Bucket_t bucket, datatype_t k_type,
                    datatype_t v_type);
@@ -73,7 +77,7 @@ unsigned int _hash_function(datatype_t key_type, type_t key)
   unsigned int hash = 0;
 
   // For hashing unsigned integer keys, we will use the modulo method.
-  if (key_type == DATATYPE_UINT)
+  if (key_type == DATATYPE_UINT || key_type == DATATYPE_INT)
     hash = VOID_PTR_2_UNSIGNED_INT(key) % HT_BUCKETS;
 
   // For hashing string keys, we will use dbj2 hashing method.
@@ -99,8 +103,6 @@ unsigned int _hash_dbj2(char *word) {
 
   return hash % HT_BUCKETS;
 }
-
-
 
 ht_err_code_t _insert_into_bucket(HashTable_Bucket_t bucket,
                            type_t key, datatype_t k_type,
@@ -190,6 +192,29 @@ ht_err_code_t _insert_into_bucket(HashTable_Bucket_t bucket,
   return ret;
 }
 
+type_t _search_on_bucket(HashTable_Bucket_t bucket,
+                         type_t key, datatype_t k_type,
+                         datatype_t v_type, ht_err_code_t *ret) {
+  *ret = HT_ERR_KEY_NOT_FOUND;
+  type_t value = NULL;
+
+  // Iterate through bucket until finding the desired key.
+  if (bucket->bucket_size > 0) {
+    Bucket_Node_t current_node = bucket->bucket_front;
+    bool_t keep_processing = TRUE;
+
+    while (keep_processing) {
+      // Check if current node's key equal to the one passed as an argument.
+      if (IS_DATA_EQUAL(k_type, key, current_node->key)) {
+        value = current_node->value;
+        keep_processing =  FALSE;
+        *ret = HT_ERR_OK;
+      }
+    }
+  }
+  return value;
+}
+
 void _print_bucket(HashTable_Bucket_t bucket, datatype_t k_type,
                    datatype_t v_type) {
   if (bucket->bucket_size <= 0) {
@@ -234,6 +259,10 @@ void _print_keyval(type_t keyval, datatype_t kv_type) {
 
 HashTable_t hashtable_create(datatype_t k_type, datatype_t v_type)
 {
+  // If key is not an int nor string, return NULL.
+  if (!(k_type == DATATYPE_INT || k_type == DATATYPE_UINT || k_type == DATATYPE_STRING))
+    return NULL;
+
   HashTable_t ht = calloc(1, sizeof(struct HT_struct));
   memset(ht, 0, sizeof(struct HT_struct));
 
@@ -264,7 +293,7 @@ ht_err_code_t hashtable_insert(HashTable_t ht, type_t key, type_t value)
   if (ht->size == HT_BUCKETS * HT_BUCKETS_CAPACITY)
     return HT_ERR_HASHTABLE_FULL;
 
-  // Calculate bucket number and insert into bucket
+  // Calculate bucket index and insert into bucket
   unsigned int bucket_idx = _hash_function(ht->key_type, key);
   ret = _insert_into_bucket(ht->buckets[bucket_idx], key, ht->key_type, value,
                             ht->value_type);
@@ -272,6 +301,28 @@ ht_err_code_t hashtable_insert(HashTable_t ht, type_t key, type_t value)
     ht->size += 1;
 
   return HT_ERR_OK;
+}
+
+type_t hashtable_get(HashTable_t ht, type_t key) {
+  ht_err_code_t ret = HT_ERR_OK;
+  type_t value = NULL;
+  type_t dest = NULL;
+
+  // Calculate bucket index
+  unsigned int bucket_idx = _hash_function(ht->key_type, key);
+
+  // Search value with entered key on calculated bucket.
+  value = _search_on_bucket(ht->buckets[bucket_idx], key, ht->key_type,
+                            ht->value_type, &ret);
+
+  // Copy the information to the variable to be returned.
+  if (ret == HT_ERR_OK) {
+    dest = malloc(GET_DATA_SIZE(ht->value_type, value));
+    memset(dest, 0, GET_DATA_SIZE(ht->value_type, value));
+    memcpy(dest, value, GET_COPY_DATA_SIZE(ht->value_type, value));
+  }
+
+  return dest;
 }
 
 size_t hashtable_size(HashTable_t ht)

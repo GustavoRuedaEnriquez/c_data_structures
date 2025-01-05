@@ -12,8 +12,8 @@ Coded a generic queue data structure that supports all C basic data types:
 This directory contains the following files:
 * **basic_defs.h** - Header file with commons macros and defines used by all the data structures on this repository.
 * **queue.h** - Header file that contains all the declarations for the queue data structure.
-* **queue.c** - Implementation of the functions defined on queue.c
-* **usage_queue.c** - File with tests on how the queue structure is used. It has examples on how to create and used a queue fosr all supported data types.
+* **queue.c** - Implementation of the functions defined on queue.h
+* **usage_queue.c** - File with tests on how the queue structure is used. It has examples on how to create and used a queue for all supported data types.
 
 ## Queue methods
 * `queue_create` - Initializes an empty queue structure.

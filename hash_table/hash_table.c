@@ -207,8 +207,16 @@ type_t _search_on_bucket(HashTable_Bucket_t bucket,
       // Check if current node's key equal to the one passed as an argument.
       if (IS_DATA_EQUAL(k_type, key, current_node->key)) {
         value = current_node->value;
-        keep_processing =  FALSE;
+        keep_processing = FALSE;
         *ret = HT_ERR_OK;
+      }
+      // Check if there is a next element the bucket.
+      else if (current_node != NULL) {
+        current_node = current_node->next;
+      }
+      // If there is no items left on the bucket, stop processing.
+      else {
+        keep_processing = FALSE;
       }
     }
   }

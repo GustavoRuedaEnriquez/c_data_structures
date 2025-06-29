@@ -71,4 +71,22 @@ typedef enum {
   DATATYPE_MIXED,
 } datatype_t;
 
+static inline void _generic_print(type_t var, datatype_t var_type)
+{
+  if (var_type == DATATYPE_UINT)
+    printf("%u", VOID_PTR_2_UINT(var));
+  else if (var_type == DATATYPE_INT)
+    printf("%d", VOID_PTR_2_INT(var));
+  else if (var_type == DATATYPE_ULONG)
+    printf("%lu", VOID_PTR_2_ULONG(var));
+  else if (var_type == DATATYPE_LONG)
+    printf("%ld", VOID_PTR_2_LONG(var));
+  else if (var_type == DATATYPE_FLOAT)
+    printf("%.6f", VOID_PTR_2_FLOAT(var));
+  else if (var_type == DATATYPE_DOUBLE)
+    printf("%.6f", VOID_PTR_2_DOUBLE(var));
+  else if (var_type == DATATYPE_STRING)
+    printf("\"%s\"", var);
+}
+
 #endif /* BASIC_DEFS_H_ */

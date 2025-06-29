@@ -16,7 +16,8 @@ struct HT_bucket_node_struct {
 };
 
 struct HT_bucket_struct {
-  size_t bucket_size;
+  unsigned int  bucket_idx;
+  size_t        bucket_size;
   Bucket_Node_t bucket_front;
 };
 
@@ -45,9 +46,9 @@ type_t _search_on_bucket(HashTable_Bucket_t bucket,
                          datatype_t v_type, ht_err_code_t *ret);
 
 void _print_bucket(HashTable_Bucket_t bucket, datatype_t k_type,
-                   datatype_t v_type);
+                   datatype_t v_type, bool_t verbose);
 
-void _print_keyval(type_t keyval, datatype_t kv_type);
+void _print_keyval_pair(Bucket_Node_t, datatype_t k_type, datatype_t v_type);
 
 Bucket_Node_t _create_node(type_t key, datatype_t k_type,
                            type_t value, datatype_t v_type) {
@@ -223,18 +224,21 @@ type_t _search_on_bucket(HashTable_Bucket_t bucket,
   return value;
 }
 
-void _print_bucket(HashTable_Bucket_t bucket, datatype_t k_type,
-                   datatype_t v_type) {
+void _print_bucket(HashTable_Bucket_t bucket,
+                   datatype_t k_type,
+                   datatype_t v_type,
+                   bool_t verbose) {
   if (bucket->bucket_size <= 0) {
-    printf("-");
+    if (verbose)
+      printf("bucket[%u] : -\n", bucket->bucket_idx);
+    return;
   }
   else {
+    printf("bucket[%u] : ", bucket->bucket_idx);
     size_t i = bucket->bucket_size;
     Bucket_Node_t temp = bucket->bucket_front;
     while (i > 0 && temp != NULL) {
-      _print_keyval(temp->key, k_type);
-      printf(":");
-      _print_keyval(temp->value, v_type);
+      _print_keyval_pair(temp, k_type, v_type);
       i--;
       temp = temp->next;
       if (i > 0 && temp != NULL) {
@@ -246,29 +250,28 @@ void _print_bucket(HashTable_Bucket_t bucket, datatype_t k_type,
   return;
 }
 
-void _print_keyval(type_t keyval, datatype_t kv_type) {
-  if (kv_type == DATATYPE_UINT)
-    printf("%u", VOID_PTR_2_UINT(keyval));
-  else if (kv_type == DATATYPE_INT)
-    printf("%d", VOID_PTR_2_INT(keyval));
-  else if (kv_type == DATATYPE_ULONG)
-    printf("%lu", VOID_PTR_2_ULONG(keyval));
-  else if (kv_type == DATATYPE_LONG)
-    printf("%ld", VOID_PTR_2_LONG(keyval));
-  else if (kv_type == DATATYPE_FLOAT)
-    printf("%.6f", VOID_PTR_2_FLOAT(keyval));
-  else if (kv_type == DATATYPE_DOUBLE)
-    printf("%.6f", VOID_PTR_2_DOUBLE(keyval));
-  else if (kv_type == DATATYPE_STRING)
-    printf("\"%s\"", keyval);
+
+void _print_keyval_pair(Bucket_Node_t bkt_node,
+                        datatype_t k_type,
+                        datatype_t v_type)
+{
+  printf("{ ");
+  _generic_print(bkt_node->key, k_type);
+  printf(" : ");
+  _generic_print(bkt_node->value, v_type);
+  printf(" }");
 }
+
+
 
 /*******/
 
 HashTable_t hashtable_create(datatype_t k_type, datatype_t v_type)
 {
   // If key is not an int nor string, return NULL.
-  if (!(k_type == DATATYPE_INT || k_type == DATATYPE_UINT || k_type == DATATYPE_STRING))
+  if (!(k_type == DATATYPE_INT  || \
+        k_type == DATATYPE_UINT || \
+        k_type == DATATYPE_STRING))
     return NULL;
 
   HashTable_t ht = calloc(1, sizeof(struct HT_struct));
@@ -278,11 +281,12 @@ HashTable_t hashtable_create(datatype_t k_type, datatype_t v_type)
   ht->value_type = v_type;
 
   // Initialize all buckets. All buckets are initialized empty.
-  for (int i = 0; i < HT_BUCKETS; i++)
+  for (unsigned int i = 0; i < HT_BUCKETS; i++)
   {
     ht->buckets[i] = calloc(1, sizeof(struct HT_bucket_struct));
     memset(ht->buckets[i], 0, sizeof(struct HT_bucket_struct));
 
+    ht->buckets[i]->bucket_idx = i;
     ht->buckets[i]->bucket_size = 0;
     ht->buckets[i]->bucket_front = NULL;
   } 
@@ -342,12 +346,12 @@ void hashtable_print(HashTable_t ht)
 {
   printf("Hash table has %d element(s)\n", ht->size);
   for (int i = 0; i < HT_BUCKETS; i++)
-  {
-    if (ht->buckets[i]->bucket_size != 0)
-    {
-      printf("bucket[%d]: ", i);
-      _print_bucket(ht->buckets[i], ht->key_type, ht->value_type);
-    }
-  } 
-  
+    _print_bucket(ht->buckets[i], ht->key_type, ht->value_type, FALSE);
+}
+
+void hashtable_print_all(HashTable_t ht)
+{
+  printf("Hash table has %d element(s)\n", ht->size);
+  for (int i = 0; i < HT_BUCKETS; i++)
+     _print_bucket(ht->buckets[i], ht->key_type, ht->value_type, TRUE);
 }

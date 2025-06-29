@@ -3,6 +3,7 @@ Coded by Gustavo Adolfo Rueda Enríquez
 Nov 23rd 2024
 */
 
+#include <stdio.h>
 #include "basic_defs.h"
 
 #ifndef HASH_TABLE_H_
@@ -12,7 +13,7 @@ Nov 23rd 2024
 #define VOID_PTR_2_CHAR_PTR(x)     ((char*)x)
 
 #define HT_BUCKETS_CAPACITY 100
-#define HT_BUCKETS 100
+#define HT_BUCKETS 20
 
 #define HT_ERR_CODE_BASE                                                   10000
 #define HT_ERR_OK                                                              0
@@ -37,6 +38,7 @@ type_t hashtable_get(HashTable_t ht, type_t key);
 
 size_t hashtable_size(HashTable_t ht);
 void hashtable_print(HashTable_t ht);
+void hashtable_print_all(HashTable_t ht);
 
 #endif /* HASH_TABLE_H_ */
 

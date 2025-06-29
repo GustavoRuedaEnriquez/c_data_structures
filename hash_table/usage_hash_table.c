@@ -34,6 +34,7 @@ int main() {
     hashtable_insert(ht,(void *)keys[i], (void *)values[i]);
   }
   hashtable_print(ht);
+  hashtable_print_all(ht);
 
   // Getting one element
   char *key = "key 5";
